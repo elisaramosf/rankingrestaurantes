@@ -1,0 +1,24 @@
+<h1>Categorías</h1>
+<%= tag.p(notice, style: "color:green") if notice %>
+<%= tag.p(alert, style: "color:red") if alert %>
+
+<%= link_to "Nueva categoría", new_admin_category_path %> |
+<%= link_to "Panel", admin_root_path %>
+
+<table>
+  <thead>
+    <tr><th>Nombre</th><th></th></tr>
+  </thead>
+  <tbody>
+    <% @categories.each do |category| %>
+      <tr>
+        <td><%= category.name %></td>
+        <td>
+          <%= link_to "Editar", edit_admin_category_path(category) %>
+          <%= button_to "Eliminar", admin_category_path(category), method: :delete,
+                form: { data: { turbo_confirm: "¿Seguro?" } } %>
+        </td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>

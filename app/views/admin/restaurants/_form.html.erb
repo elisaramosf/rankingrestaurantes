@@ -1,0 +1,27 @@
+<%= form_with model: [:admin, restaurant] do |form| %>
+  <% if restaurant.errors.any? %>
+    <ul style="color:red">
+      <% restaurant.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+    </ul>
+  <% end %>
+
+  <div>
+    <%= form.label :name, "Nombre" %><br>
+    <%= form.text_field :name %>
+  </div>
+
+  <div>
+    <%= form.label :address, "Dirección" %><br>
+    <%= form.text_field :address %>
+  </div>
+
+  <div>
+    <%= form.label :category_id, "Categoría" %><br>
+    <%= form.collection_select :category_id, Category.order(:name), :id, :name,
+          { prompt: "Elegí una categoría" } %>
+  </div>
+
+  <%= form.submit "Guardar" %>
+<% end %>

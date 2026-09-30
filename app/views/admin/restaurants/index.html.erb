@@ -1,0 +1,26 @@
+<h1>Restaurantes</h1>
+<%= tag.p(notice, style: "color:green") if notice %>
+<%= tag.p(alert, style: "color:red") if alert %>
+
+<%= link_to "Nuevo restaurante", new_admin_restaurant_path %> |
+<%= link_to "Panel", admin_root_path %>
+
+<table>
+  <thead>
+    <tr><th>Nombre</th><th>Dirección</th><th>Categoría</th><th></th></tr>
+  </thead>
+  <tbody>
+    <% @restaurants.each do |restaurant| %>
+      <tr>
+        <td><%= restaurant.name %></td>
+        <td><%= restaurant.address %></td>
+        <td><%= restaurant.category&.name %></td>
+        <td>
+          <%= link_to "Editar", edit_admin_restaurant_path(restaurant) %>
+          <%= button_to "Eliminar", admin_restaurant_path(restaurant), method: :delete,
+                form: { data: { turbo_confirm: "¿Seguro?" } } %>
+        </td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>

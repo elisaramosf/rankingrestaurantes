@@ -1,6 +1,8 @@
 Rails.application.routes.draw do
   namespace :admin do
     root "dashboard#index"
+    resources :categories, except: :show
+    resources :restaurants, except: :show
   end
 
   resource :session
