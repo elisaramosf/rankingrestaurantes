@@ -11,7 +11,13 @@ class Api::V1::RestaurantsController < Api::V1::BaseController
 
   private
 
-  def restaurant_json(restaurant)
-    { id: restaurant.id, name: restaurant.name, address: restaurant.address, category: restaurant.category&.name }
+    def restaurant_json(restaurant)
+    {
+      id: restaurant.id,
+      name: restaurant.name,
+      address: restaurant.address,
+      category: restaurant.category&.name,
+      photo_url: restaurant.photo.attached? ? rails_blob_url(restaurant.photo) : nil
+    }
   end
 end

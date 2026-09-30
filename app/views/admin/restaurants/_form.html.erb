@@ -23,5 +23,10 @@
           { prompt: "Elegí una categoría" } %>
   </div>
 
+  <div>
+    <%= form.label :photo, "Foto" %><br>
+    <%= form.file_field :photo, accept: "image/*" %>
+  </div>
+
   <%= form.submit "Guardar" %>
 <% end %>

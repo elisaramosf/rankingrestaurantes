@@ -2,7 +2,7 @@ class Admin::RestaurantsController < Admin::BaseController
   before_action :set_restaurant, only: %i[edit update destroy]
 
   def index
-    @restaurants = Restaurant.includes(:category).order(:name)
+    @restaurants = Restaurant.with_attached_photo.includes(:category).order(:name)
   end
 
   def new
@@ -43,6 +43,6 @@ class Admin::RestaurantsController < Admin::BaseController
   end
 
   def restaurant_params
-    params.expect(restaurant: [ :name, :address, :category_id ])
+    params.expect(restaurant: [ :name, :address, :category_id, :photo ])
   end
 end
