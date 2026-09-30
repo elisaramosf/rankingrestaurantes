@@ -11,6 +11,7 @@ Rails.application.routes.draw do
       delete "logout", to: "sessions#destroy"
       resources :restaurants, only: %i[index show]
       get "profile", to: "profiles#show"
+      resources :users, only: :create
     end
   end
 
