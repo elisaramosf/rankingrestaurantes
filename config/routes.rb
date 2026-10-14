@@ -1,3 +1,4 @@
+
 Rails.application.routes.draw do
   namespace :admin do
     root "dashboard#index"
@@ -9,7 +10,15 @@ Rails.application.routes.draw do
     namespace :v1 do
       post "login", to: "sessions#create"
       delete "logout", to: "sessions#destroy"
-      resources :restaurants, only: %i[index show]
+
+      resources :restaurants, only: %i[index show] do
+        resources :reviews, only: %i[index create]
+      end
+
+      resources :reviews, only: %i[update destroy]
+      resources :favorites, only: %i[index create]
+      delete "favorites/:restaurant_id", to: "favorites#destroy"
+
       get "profile", to: "profiles#show"
       resources :users, only: :create
     end
@@ -18,7 +27,6 @@ Rails.application.routes.draw do
   resource :session
   resources :passwords, param: :token
 
-  # Reveal health status on /up that returns 200 if the app boots with no exceptions, otherwise 500.
   get "up" => "rails/health#show", as: :rails_health_check
 
   root to: redirect("/admin")

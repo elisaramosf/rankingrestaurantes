@@ -18,11 +18,16 @@ class ApiTest < ActionDispatch::IntegrationTest
     assert_response :unauthorized
   end
 
+
   test "lista restaurantes sin token" do
     get "/api/v1/restaurants"
     assert_response :success
-    assert_equal 1, response.parsed_body.size
+
+    restaurantes = response.parsed_body
+    assert_equal Restaurant.count, restaurantes.size
+    assert restaurantes.any? { |r| r["id"] == @restaurant.id }
   end
+
 
   test "restaurante inexistente devuelve 404" do
     get "/api/v1/restaurants/0"

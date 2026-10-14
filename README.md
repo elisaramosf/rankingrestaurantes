@@ -140,3 +140,52 @@ Brakeman no reporta advertencias.
 
 - La gema `json` está fijada en una versión menor a 3.0 en el `Gemfile`, porque la versión 3.x es incompatible con Rails 8.1.3.1 (falla al leer cookies).
 - El campo `role` no se acepta en el registro por la API, para que nadie pueda registrarse como administrador.
+
+
+## Reviews y Favorites
+
+La API permite a los usuarios registrados publicar reseñas
+y guardar restaurantes como favoritos.
+
+### Reviews
+
+| Método | Endpoint | Descripción |
+|---|---|---|
+| GET | /api/v1/restaurants/:restaurant_id/reviews | Listar reseñas |
+| POST | /api/v1/restaurants/:restaurant_id/reviews | Crear reseña |
+| PATCH | /api/v1/reviews/:id | Editar reseña propia |
+| DELETE | /api/v1/reviews/:id | Eliminar reseña propia |
+
+Cada reseña contiene una puntuación de 1 a 5 estrellas
+y un comentario.
+
+### Favorites
+
+| Método | Endpoint | Descripción |
+|---|---|---|
+| GET | /api/v1/favorites | Listar favoritos del usuario |
+| POST | /api/v1/favorites | Agregar restaurante a favoritos |
+| DELETE | /api/v1/favorites/:restaurant_id | Eliminar favorito |
+
+### Autenticación
+
+Las operaciones protegidas requieren un token de sesión.
+
+El token se obtiene mediante:
+
+POST /api/v1/login
+
+Y se envía en las solicitudes mediante:
+
+Authorization: Bearer TOKEN
+
+### Pruebas
+
+Las funcionalidades se probaron utilizando Postman
+y tests automatizados de Rails.
+
+Comandos de verificación:
+
+bin/rails test
+bin/rubocop
+bin/brakeman

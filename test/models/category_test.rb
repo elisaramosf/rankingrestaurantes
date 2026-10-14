@@ -19,6 +19,6 @@ class CategoryTest < ActiveSupport::TestCase
     Restaurant.create!(name: "Don Mario", category: category)
 
     assert_not category.destroy
-    assert_equal 1, Restaurant.count
+    assert_equal 1, category.restaurants.count
   end
 end
